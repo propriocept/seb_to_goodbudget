@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "seb_to_goodbudget"
+version = "0.1.0"
+description = "CLI tool to format Excel bank statements from SEB for use in Good Budget"
+authors = ["Anil Sharma <anil@propriocept.com>"]
+license = "CC0 1.0 Universal"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.0"
+
+[tool.poetry.dev-dependencies]
+black = "^23.9.1"
+pytest = "^7.4.2"
+ruff = "^0.0.292"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
