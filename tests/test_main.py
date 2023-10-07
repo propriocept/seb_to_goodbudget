@@ -13,6 +13,7 @@ fixture_input_filenames = [
     Path("tests/fixtures/test_input.xlsx"),
 ]
 
+
 @pytest.fixture
 def fixture_expected_df_from_excel() -> pd.DataFrame:
     return pd.DataFrame(
@@ -55,7 +56,7 @@ def test_write_csv_creates_file(tmp_path, fixture_expected_df_from_excel):
     M.write_csv(df=df_output, filename=test_filename)
     assert test_filename.exists()
 
-from tempfile import NamedTemporaryFile
+
 def test_write_csv_correct_format(tmp_path, fixture_expected_df_from_excel):
     """Is the output file in the expected format?"""
     expected = [
