@@ -42,3 +42,30 @@ def test_read_excel(filename):
     )
     actual = M.read_excel(filename)
     pd.testing.assert_frame_equal(expected, actual)
+
+
+def test_write_csv_creates_file(tmp_path):
+    """Does the function create a file with the expected filename?"""
+    df_output = pd.DataFrame(
+        [
+            {
+                "Date": datetime(year=2023, month=10, day=6),
+                "Name": "Transaction 1",
+                "Amount": Decimal(-9999.00),
+            },
+            {
+                "Date": datetime(year=2023, month=10, day=3),
+                "Name": "Transaction 2",
+                "Amount": Decimal(-2.00),
+            },
+            {
+                "Date": datetime(year=2023, month=10, day=3),
+                "Name": "Transaction 3",
+                "Amount": Decimal(10001.00),
+            },
+        ]
+    )
+    test_filename = tmp_path / "test_file.csv"
+    M.write_csv(df=df_output, filename=test_filename)
+    assert test_filename.exists()
+

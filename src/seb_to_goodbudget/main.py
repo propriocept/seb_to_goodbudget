@@ -48,6 +48,7 @@ def write_csv(df: pd.DataFrame, filename: Path) -> None:
     filename : pathlib.Path
         file where CSV will be written to
     """
+    filename.touch()
     return None
 
 def main() -> bool:
