@@ -60,7 +60,7 @@ def write_csv(df: pd.DataFrame, filename: Path) -> None:
     return None
 
 
-def main() -> None:
+def main() -> int:
     parser = ArgumentParser(
         prog="SEB transaction file to CSV for Good Budget.",
         description="Converts an SEB formated excel file to a formated CSV file.",
@@ -69,14 +69,18 @@ def main() -> None:
     parser.add_argument("--csv_file", "-o", help="Filename of CSV where you want results for Good Budget written. If no filename is given, we reuse the name of the input excel file.")
     args = parser.parse_args()
     if args.csv_file == None:
-        file_out = Path(args.excel_file).with_suffix("csv")
+        file_out = Path(args.excel_file).with_suffix(".csv")
     else:
         file_out = Path(args.csv_file)
-
-    df = read_excel(filename=args.excel_file)
-    write_csv(df=df, filename=file_out)
-    print(f"File saved to {file_out}.")
-    return None
+    
+    if file_out.exists():
+        print(f"The output file {file_out} already exists.")
+        return 1
+    else:
+        df = read_excel(filename=args.excel_file)
+        write_csv(df=df, filename=file_out)
+        print(f"File saved to {file_out}.")
+        return 0
     
 
 if __name__ == "__main__":
