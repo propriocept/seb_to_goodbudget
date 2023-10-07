@@ -61,9 +61,9 @@ def test_write_csv_correct_format(tmp_path, fixture_expected_df_from_excel):
     """Is the output file in the expected format?"""
     expected = [
         "Date,Name,Amount\n",
-        "10/06/2023,Transaction 1,-9999.00\n",
-        "10/03/2023,Transaction 2,-2.00\n",
-        "10/03/2023,Transaction 3,10001.00\n",
+        "06/10/2023,Transaction 1,-9999.00\n",
+        "03/10/2023,Transaction 2,-2.00\n",
+        "03/10/2023,Transaction 3,10001.00\n",
     ]
     test_filename = tmp_path / "b.csv"
     M.write_csv(df=fixture_expected_df_from_excel, filename=Path(test_filename))

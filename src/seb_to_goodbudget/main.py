@@ -49,7 +49,7 @@ def write_csv(df: pd.DataFrame, filename: Path) -> None:
         file where CSV will be written to
     """
     out_df = df.copy()
-    out_df["Date"] = out_df.Date.dt.strftime(date_format="%m/%d/%Y")
+    out_df["Date"] = out_df.Date.dt.strftime(date_format="%d/%Y")
     # with open(filename, "w") as file_out:
     # file_out.write("Date,Name,Amount\n")
     # for row in out_df.itertuples():
