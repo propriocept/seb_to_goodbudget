@@ -66,7 +66,7 @@ def main() -> None:
         description="Converts an SEB formated excel file to a formated CSV file.",
     )
     parser.add_argument("excel_file", help="excel file of transactions from SEB.")
-    parser.add_argument("csv_file", help="Filename of CSV where you want results for Good Budget written.")
+    parser.add_argument("--csv_file", "-o", help="Filename of CSV where you want results for Good Budget written. If no filename is given, we reuse the name of the input excel file.")
     args = parser.parse_args()
     if args.csv_file == None:
         file_out = Path(args.excel_file).with_suffix("csv")

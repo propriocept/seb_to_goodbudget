@@ -1,1 +1,1 @@
-from .__main__ import read_excel, write_csv
+from .main import read_excel, write_csv
