@@ -1,10 +1,11 @@
 """One file for all functions to begin with."""
 
+from argparse import ArgumentParser
 from decimal import Decimal
 import pandas as pd
 from pathlib import Path
 
-
+    
 def read_excel(filename: str | Path) -> pd.DataFrame:
     """Reads an .xlsx file from SEB and returns transactions as a pandas dataframe.
 
@@ -49,7 +50,7 @@ def write_csv(df: pd.DataFrame, filename: Path) -> None:
         file where CSV will be written to
     """
     out_df = df.copy()
-    out_df["Date"] = out_df.Date.dt.strftime(date_format="%d/%Y")
+    out_df["Date"] = out_df.Date.dt.strftime(date_format="%d/%m/%Y")
     # with open(filename, "w") as file_out:
     # file_out.write("Date,Name,Amount\n")
     # for row in out_df.itertuples():
@@ -59,9 +60,24 @@ def write_csv(df: pd.DataFrame, filename: Path) -> None:
     return None
 
 
-def main() -> bool:
-    return True
+def main() -> None:
+    parser = ArgumentParser(
+        prog="SEB transaction file to CSV for Good Budget.",
+        description="Converts an SEB formated excel file to a formated CSV file.",
+    )
+    parser.add_argument("excel_file", help="excel file of transactions from SEB.")
+    parser.add_argument("csv_file", help="Filename of CSV where you want results for Good Budget written.")
+    args = parser.parse_args()
+    if args.csv_file == None:
+        file_out = Path(args.excel_file).with_suffix("csv")
+    else:
+        file_out = Path(args.csv_file)
 
+    df = read_excel(filename=args.excel_file)
+    write_csv(df=df, filename=file_out)
+    print(f"File saved to {file_out}.")
+    return None
+    
 
-if __name__ == "main":
+if __name__ == "__main__":
     main()
