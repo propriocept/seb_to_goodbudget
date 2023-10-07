@@ -6,7 +6,7 @@ import pandas as pd
 from pathlib import Path
 import pytest
 
-import seb_to_goodbudget.main as M
+import seb_to_goodbudget as M
 
 fixture_input_filenames = [
     "tests/fixtures/test_input.xlsx",
