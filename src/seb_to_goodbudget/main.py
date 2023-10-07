@@ -48,7 +48,14 @@ def write_csv(df: pd.DataFrame, filename: Path) -> None:
     filename : pathlib.Path
         file where CSV will be written to
     """
-    filename.touch()
+    out_df = df.copy()
+    out_df["Date"] = out_df.Date.dt.strftime(date_format="%m/%d/%Y")
+    #with open(filename, "w") as file_out:
+        #file_out.write("Date,Name,Amount\n")
+        #for row in out_df.itertuples():
+            #file_out.write(f"{row.Date},{row.Name},{row.Amount:1.2f}")
+    out_df["Amount"] = out_df.Amount.apply(lambda x: f"{x:.2f}")
+    out_df.to_csv(filename, header=True, index=False, mode="x")
     return None
 
 def main() -> bool:
