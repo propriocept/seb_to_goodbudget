@@ -35,6 +35,21 @@ def read_excel(filename: str | Path) -> pd.DataFrame:
     return out_df
 
 
+def write_csv(df: pd.DataFrame, filename: Path) -> None:
+    """Write the data to format for Good Budget.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        pandas dataframe with the following schema:
+            Date : datetime64
+            Name : str
+            Amount : Decimal
+    filename : pathlib.Path
+        file where CSV will be written to
+    """
+    return None
+
 def main() -> bool:
     return True
 
