@@ -6,7 +6,7 @@ authors = ["Anil Sharma <anil@propriocept.com>"]
 license = "CC0 1.0 Universal"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.11,<3.13"
 pandas = "^2.0"
 openpyxl = "^3.1.2"
 pandas-stubs = "^2.1.1.230928"
