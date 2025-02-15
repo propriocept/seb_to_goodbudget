@@ -51,36 +51,51 @@ def write_csv(df: pd.DataFrame, filename: Path) -> None:
     """
     out_df = df.copy()
     out_df["Date"] = out_df.Date.dt.strftime(date_format="%d/%m/%Y")
-    # with open(filename, "w") as file_out:
-    # file_out.write("Date,Name,Amount\n")
-    # for row in out_df.itertuples():
-    # file_out.write(f"{row.Date},{row.Name},{row.Amount:1.2f}")
     out_df["Amount"] = out_df.Amount.apply(lambda x: f"{x:.2f}")
     out_df.to_csv(filename, header=True, index=False, mode="x")
     return None
 
 
 def main() -> int:
+    """Convert SEB Excel file to Good Budget CSV format.
+    
+    Returns
+    -------
+    int
+        0 for success, 1 for error
+    """
     parser = ArgumentParser(
         prog="SEB transaction file to CSV for Good Budget.",
         description="Converts an SEB formated excel file to a formated CSV file.",
     )
     parser.add_argument("excel_file", help="excel file of transactions from SEB.")
     parser.add_argument("--csv_file", "-o", help="Filename of CSV where you want results for Good Budget written. If no filename is given, we reuse the name of the input excel file.")
-    args = parser.parse_args()
-    if args.csv_file == None:
-        file_out = Path(args.excel_file).with_suffix(".csv")
-    else:
-        file_out = Path(args.csv_file)
     
-    if file_out.exists():
-        print(f"The output file {file_out} already exists.")
-        return 1
-    else:
+    try:
+        args = parser.parse_args()
+        if args.csv_file is None:
+            file_out = Path(args.excel_file).with_suffix(".csv")
+        else:
+            file_out = Path(args.csv_file)
+        
+        if file_out.exists():
+            print(f"The output file {file_out} already exists.")
+            return 1
+            
         df = read_excel(filename=args.excel_file)
         write_csv(df=df, filename=file_out)
         print(f"File saved to {file_out}.")
         return 0
+        
+    except FileNotFoundError:
+        print(f"Input file not found: {args.excel_file}")
+        return 1
+    except ValueError as e:
+        print(f"Error reading Excel file: {e}")
+        return 1
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        return 1
     
 
 if __name__ == "__main__":
