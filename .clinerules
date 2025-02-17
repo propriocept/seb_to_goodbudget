@@ -21,6 +21,11 @@ Code Style: Follow PEP 8 for Python. Ensure consistent naming conventions and cl
 # Testing Framework
 Testing Framework: Use pytest for testing. Do not switch to other frameworks.
 
+When testing CLi code that requires arguments passed from the command line, use click.testing import CliRunner
+
 # Special Instructions
 - Do not change tests to fit functionality; modify functionality to pass tests.
 - Ensure each function/method has corresponding unit tests with adequate code coverage.
+- Each test should test only one thing.
+- When refactoring code by splitting it up into separate functions and classes, use the existing unit tests to make sure the new code passes the original requirements before writing new tests specifically for the new code. 
+- Before running unit tests, make sure other static code checks pass first.
